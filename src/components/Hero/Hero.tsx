@@ -1,24 +1,18 @@
 import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { AspectRatio } from "../ui/aspect-ratio";
 import ReactPlayer from "react-player/youtube";
 
 import { heroData } from "./HeroData";
 
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 import finBizDash from "@/assets/finBiz-dashboard.svg";
 import { CirclePlay } from "lucide-react";
 import { useRef } from "react";
 
-const heroChildVariants = {
+const heroChildVariants: Variants = {
   start: {
     y: 30,
     opacity: 0,
@@ -35,7 +29,7 @@ const heroChildVariants = {
   },
 };
 
-const heroVariants = {
+const heroVariants: Variants = {
   start: {},
   end: {
     transition: {
@@ -45,7 +39,7 @@ const heroVariants = {
 };
 
 export default function Hero() {
-  const heroBannerRef = useRef<HTMLElement>(null);
+  const heroBannerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: heroBannerRef,
@@ -97,18 +91,21 @@ export default function Hero() {
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="ghost">
-                  <CirclePlay /> Watch Demo
+                  <CirclePlay className="mr-2" /> Watch Demo
                 </Button>
               </DialogTrigger>
               <DialogContent className="p-0 overflow-hidden max-w-[640px] xl:max-w-[1000px]">
                 <AspectRatio ratio={16 / 9}>
                   <ReactPlayer
                     url="https://www.youtube.com/watch?v=9VlvbpXwLJs&t=3824s"
-                    style={{
-                      maxWidth: "100%",
-                      minWidth: "100%",
-                      maxHeight: "100%",
-                      minHeight: "100%",
+                    width="100%"
+                    height="100%"
+                    config={{
+                      playerVars: {
+                        showinfo: 1,
+                        modestbranding: 1,
+                        rel: 0,
+                      },
                     }}
                   />
                 </AspectRatio>
@@ -131,6 +128,7 @@ export default function Hero() {
               width={1536}
               height={747}
               alt="FinBiz Dashboard"
+              className="w-full"
             />
           </motion.figure>
 
